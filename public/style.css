@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "SSS";
+    src: url('fonts/satan_hum_sav.ttf');
+    font-style: normal;
+    font-weight: normal;
+}
+
+.word-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 50px;
+    align-items: center;
+    overflow: visible;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.item {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.active {
+    font-size: 2em;
+    font-family: "SSS", serif;
+    color: black;
+    background-color: white;
+}
