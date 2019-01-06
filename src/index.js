@@ -35,3 +35,15 @@ for (let i = 0, n = 0; i < text.length; i++) {
     }
   }
 }
+
+const getResource = async function(url) {
+  const res_full = await fetch(url);
+  if (!res_full.ok) {
+    throw new Error('Record not found');
+  }
+  return await res_full.json();
+};
+
+getResource('https://swapi.co/api/people/11111111111')
+  .then((body) => console.log(body))
+  .catch((err) => console.log(err.message));
