@@ -17,6 +17,7 @@ export default class App extends Component {
     const article = document.getElementsByTagName('body')[0]
       .appendChild(document.createElement('article'));
     article.id = 'dynamicText';
+    article.className = 'my-3';
     article.innerHTML = 'I am Super Man!';
     CssGoesOverChars.prototype.start(article.id);
 
@@ -32,8 +33,21 @@ export default class App extends Component {
       });
 
     return (
-      <div id='progress' className='d-flex justify-content-center align-items-center'>
-        <progress max="10">i</progress>
+      <div  className='d-flex justify-content-center align-items-center m-3'>
+        <div
+          className="progress"
+          style={{width: '35%'}}
+          id='progress'
+        >
+          <div
+            className="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{width: '100%'}}
+          > </div>
+        </div>
       </div>
     )
   }
