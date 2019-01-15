@@ -1,8 +1,8 @@
 class SwapiService {
   _url = 'https://swapi.co/api';
 
-  async getResource(url = this._url, resource = 'people', id) {
-    const full_url = `${url}/${resource}/${id ? id : ''}`;
+  async getResource(resource = 'people', id) {
+    const full_url = `${this._url}/${resource}/${id ? id : ''}`;
     const res_full = await fetch(full_url);
     console.log(res_full.ok);
     if (!res_full.ok) {

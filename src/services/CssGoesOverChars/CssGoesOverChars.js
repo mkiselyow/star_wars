@@ -1,3 +1,5 @@
+import './CssGoesOverChars.css';
+
 export default class CssGoesOverChars {
   start(elementId) {
     const article = document.getElementById(elementId);
