@@ -39,7 +39,7 @@ export default class App extends Component {
       });
 
     return (
-      <div className='app'>
+      <div className='app container'>
         <Header/>
         <div  className='d-flex justify-content-center align-items-center m-3'>
           <div
