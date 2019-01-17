@@ -5,7 +5,7 @@ export default class CssGoesOverChars {
     const article = document.getElementById(elementId);
     const text = article.innerHTML;
     article.innerHTML = text.split('')
-      .map((char) => `<div class='item'>${char}</div>`)
+      .map((char) => `<div class='char-item'>${char}</div>`)
       .join('\n');
     article.classList.add('word-wrapper');
 
@@ -16,9 +16,9 @@ export default class CssGoesOverChars {
     for (let i = 0, n = 0; i < text.length; i++) {
       if (text.charAt(i) !== ' ') {
         const invokeClassToggle = () => {
-          nodes[i].classList.add('active');
+          nodes[i].classList.add('char-active');
           setTimeout(
-            () => nodes[i].classList.remove('active'),
+            () => nodes[i].classList.remove('char-active'),
             1000
           );
 

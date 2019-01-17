@@ -19,14 +19,11 @@ export default class App extends Component {
     }
   };
 
-  render() {
-    const article = document.getElementsByTagName('body')[0]
-      .appendChild(document.createElement('article'));
-    article.id = 'dynamicText';
-    article.className = 'my-3';
-    article.innerHTML = 'I am Super Man!';
-    CssGoesOverChars.prototype.start(article.id);
+  componentDidMount() {
+    CssGoesOverChars.prototype.start('dynamicText');
+  }
 
+  render() {
     this.changeProgress(true);
     (new SwapiService()).getResource('people', 1)
       .then((body) => {
@@ -40,6 +37,10 @@ export default class App extends Component {
 
     return (
       <div className='app container'>
+        <article
+          id='dynamicText'
+          className='my-3'
+        >Star Wars Database</article>
         <Header/>
         <div  className='d-flex justify-content-center align-items-center m-3'>
           <div

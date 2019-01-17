@@ -1,6 +1,13 @@
 @font-face {
-    font-family: "SSS";
+    font-family: "gothic-font";
     src: url('../../fonts/satan_hum_sav.ttf');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "star-wars-font";
+    src: url('../../fonts/Starjedi.ttf');
     font-style: normal;
     font-weight: normal;
 }
@@ -16,14 +23,14 @@
     margin: 0 auto;
 }
 
-.item {
+.char-item {
     flex-grow: 1;
     text-align: center;
+    font-family: "star-wars-font", serif;
 }
 
-.active {
+.char-active {
     font-size: 2em;
-    font-family: "SSS", serif;
     color: black;
     background-color: white;
 }
