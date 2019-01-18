@@ -1,0 +1,19 @@
+a.nav-list-item:hover {
+    color: #222;
+    background-color: #adb5bd;
+    border-radius: 10px;
+    transition: color 1s, background-color 1s;
+}
+
+a.nav-list-item {
+    color: #ffffff;
+    background-color: transparent;
+    border-radius: 10px;
+    transition: color 1s, background-color 1s;
+}
+
+ul.nav-list-item-container {
+    background: #303030;
+    border-radius: 10px;
+    justify-content: space-around;
+}
