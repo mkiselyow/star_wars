@@ -6,7 +6,10 @@ import ItemList from "../ItemList/ItemList";
 import PersonDetails from "../PersonDetails/PersonDetails";
 // import PlanetDetails from "../PlanetDetails/PlanetDetails";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
+import PlanetDetails from "../PlanetDetails/PlanetDetails";
 // import StarshipDetails from "../StarshipDetails/StarshipDetails";
+
+import './App.css';
 
 export default class App extends Component {
   isFetchInProgress = false;
@@ -66,7 +69,7 @@ export default class App extends Component {
             <ItemList/>
           </div>
           <div className='col-md-6'>
-            <PersonDetails/>
+            <PlanetDetails/>
           </div>
         </div>
       </div>

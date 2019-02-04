@@ -1,0 +1,12 @@
+.item-list-item-link {
+    color: #fff;
+}
+
+.item-list-item-link:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+li.hover-color:hover {
+    background-color: #2b2a2a;
+}
