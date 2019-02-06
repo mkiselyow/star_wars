@@ -26,13 +26,7 @@ export default class RandomPlanet extends Component {
     this.swapiService
       .getResource('planets', id)
       .then((planet) => {
-        this.setState({
-          id: id,
-          name: planet.name,
-          population: planet.population,
-          rotationPeriod: planet.rotation_period,
-          diameter: planet.diameter
-        })
+        this.setState({...planet})
       })
   };
 
@@ -46,7 +40,7 @@ export default class RandomPlanet extends Component {
             <img className='rounded my-2 random-planet-img' src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
           </div>
           <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
-            <header className='mt-auto mb-auto'>
+            <header className='my-3'>
               <span>{name}</span>
             </header>
             <table className="table table-hover">
