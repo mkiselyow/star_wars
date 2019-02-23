@@ -18,18 +18,34 @@ class SwapiService {
       })
   };
 
+  getId(objectToDecorate) {
+    return objectToDecorate.url.match(/\/([0-9]*)\/$/)[1]
+  };
+
   Decorator(resource, id, objectToDecorate) {
     switch (resource) {
       case 'planets':
         return {
-          id: id,
+          id: this.getId(objectToDecorate),
           name: objectToDecorate.name,
           population: objectToDecorate.population,
           rotationPeriod: objectToDecorate.rotation_period,
           diameter: objectToDecorate.diameter
           };
-      case 'starship':
+      case 'starships':
+        return {
+          id: this.getId(objectToDecorate),
+          name: objectToDecorate.name,
+          cargo_capacity: objectToDecorate.cargo_capacity,
+          passengers: objectToDecorate.passengers
+        };
       case 'people':
+        return {
+          id: this.getId(objectToDecorate),
+          name: objectToDecorate.name,
+          gender: objectToDecorate.gender,
+          mass: objectToDecorate.mass
+        };
       default:
         return objectToDecorate;
     }

@@ -3,8 +3,7 @@ import SwapiService from '../../services/SwapiService/SwapiService';
 import CssGoesOverChars from '../../services/CssGoesOverChars/CssGoesOverChars';
 import Header from '../Header/Header';
 import ItemList from "../ItemList/ItemList";
-import PersonDetails from "../PersonDetails/PersonDetails";
-// import PlanetDetails from "../PlanetDetails/PlanetDetails";
+// import PersonDetails from "../PersonDetails/PersonDetails";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
 import PlanetDetails from "../PlanetDetails/PlanetDetails";
 // import StarshipDetails from "../StarshipDetails/StarshipDetails";
@@ -28,7 +27,7 @@ export default class App extends Component {
 
   render() {
     this.changeProgress(true);
-    (new SwapiService()).getResource('people', 1)
+    (new SwapiService()).getResource('planets')
       .then((body) => {
         this.changeProgress(false);
         console.log(body);
