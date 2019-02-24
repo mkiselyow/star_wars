@@ -29,41 +29,62 @@ export default class RandomPlanet extends Component {
       .then((planet) => {
         this.setState({...planet})
       })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   render() {
-    const {id, name, population, rotationPeriod, diameter} = this.state;
+    const {...planet} = this.state;
+    const isPlanetEmpty = !!Object.values(planet).join('');
+    const content = isPlanetEmpty
+      ? <PlanetDetailsContent planet={planet}/>
+      : null;
+    const spinner = !isPlanetEmpty
+      ? <Spinner/>
+      : null;
 
     return (
-      <article className='person-details container bg-gray rounded'>
+      <article className='random-planet-content container bg-gray rounded'>
         <div className='row'>
-          <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
-            <img className='rounded my-2 random-planet-img' src={id ? `https://starwars-visualguide.com/assets/img/planets/${id}.jpg` : ''} alt=""/>
-            <Spinner/>
-          </div>
-          <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
-            <header className='my-3'>
-              <span>{name}</span>
-            </header>
-            <table className="table table-hover">
-              <tbody>
-                <tr className="table-active">
-                  <th scope="row">Population</th>
-                  <td>{population}</td>
-                </tr>
-                <tr className="table-active">
-                  <th scope="row">Rotation Period</th>
-                  <td>{rotationPeriod}</td>
-                </tr>
-                <tr className="table-active">
-                  <th scope="row">Diameter</th>
-                  <td>{diameter}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          {spinner}
+          {content}
         </div>
       </article>
     )
   }
+}
+
+const PlanetDetailsContent = ({planet}) => {
+  const {id, name, population, rotationPeriod, diameter} = planet;
+
+  return (
+    <React.Fragment>
+      <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
+        <img className='rounded my-2 random-planet-img' src={id ? `https://starwars-visualguide.com/assets/img/planets/${id}.jpg` : ''} alt=""/>
+        <Spinner/>
+      </div>
+      <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
+        <header className='my-3'>
+          <span>{name}</span>
+        </header>
+        <table className="table table-hover">
+          <tbody>
+          <tr className="table-active">
+            <th scope="row">Population</th>
+            <td>{population}</td>
+          </tr>
+          <tr className="table-active">
+            <th scope="row">Rotation Period</th>
+            <td>{rotationPeriod}</td>
+          </tr>
+          <tr className="table-active">
+            <th scope="row">Diameter</th>
+            <td>{diameter}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </React.Fragment>
+  );
 }

@@ -3,3 +3,7 @@
     width: 150px;
     z-index: 1;
 }
+
+.random-planet-content {
+    min-height: 210px;
+}
