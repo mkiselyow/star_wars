@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import './Spinner.css';
-import CssGoesOverChars from "../../services/CssGoesOverChars/CssGoesOverChars";
 
 export default class Spinner extends Component {
   componentDidMount() {
@@ -12,7 +11,7 @@ export default class Spinner extends Component {
     let spinners = document.getElementsByClassName("lds-css ng-scope");
     let nodes = [];
 
-    for ( var i = 0; i < spinners.length; i++) {
+    for ( let i = 0; i < spinners.length; i++) {
       nodes.push(
         Array.from(spinners[i].parentElement.childNodes)
       );
@@ -21,13 +20,11 @@ export default class Spinner extends Component {
     let images = [];
     nodes = nodes.flat();
 
-    for ( var i = 0; i < nodes.length; i++) {
+    for ( let i = 0; i < nodes.length; i++) {
       if (nodes[i].tagName === "IMG")
         nodes[i].style.zIndex = '1';
         images.push(nodes[i]);
     }
-
-    console.log(images);
   };
 
   render() {

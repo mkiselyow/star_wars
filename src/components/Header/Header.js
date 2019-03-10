@@ -6,17 +6,19 @@ export default class Header extends Component {
     return (
       <header className='header'>
         <ul className="nav nav-list-item-container">
-          <li className="nav-item">
-            <a className="nav-link nav-list-item" href="#">People</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link nav-list-item" href="#">Planets</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link nav-list-item" href="#">Ships</a>
-          </li>
+          <Link href={"#"} title="People"/>
+          <Link href={"#"} title="Planets"/>
+          <Link href={"#"} title="Ships"/>
         </ul>
       </header>
     )
   }
 }
+
+const Link = ({href, title}) => {
+  return (
+    <li className="nav-item">
+      <a className="nav-link nav-list-item" href={href}>{title}</a>
+    </li>
+  )
+};

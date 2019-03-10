@@ -23,15 +23,12 @@ export default class RandomPlanet extends Component {
   };
 
   updatePlanet() {
-    const id = Math.floor(Math.random()*25) + 2;
+    const id = 12;//Math.floor(Math.random()*25) + 2;
     this.swapiService
       .getResource('planets', id)
       .then((planet) => {
         this.setState({...planet})
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
   };
 
   render() {
