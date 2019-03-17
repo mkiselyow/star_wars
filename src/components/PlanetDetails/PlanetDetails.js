@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Spinner from '../Spinner/Spinner';
 import './PlanetDetails.css';
 
 export default class PlanetDetails extends Component {
@@ -10,7 +9,6 @@ export default class PlanetDetails extends Component {
           <header className='text-center  m-2'>Planet Details</header>
           <figure className='text-center d-flex flex-column m-2'>
             <img className='rounded alignSelfCenter' src="https://vignette.wikia.nocookie.net/starwars/images/a/af/Mustafar_DB.png/revision/latest?cb=20160118061913" alt=""/>
-            <Spinner/>
           </figure>
         </div>
         <div className='row d-flex flex-column justify-content-center mx-1'>

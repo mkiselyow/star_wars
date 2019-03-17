@@ -17,8 +17,11 @@ class SwapiService {
       })
       .catch((err) => {
         console.log(err.message);
+        throw err;
       });
   };
+
+
 
   getId(objectToDecorate) {
     return objectToDecorate.url.match(/\/([0-9]*)\/$/)[1]
