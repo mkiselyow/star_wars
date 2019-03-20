@@ -18,10 +18,16 @@ export default class RandomPlanet extends Component {
     error: false
   };
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.updatePlanet();
-  };
+    this.interval = setInterval(
+      this.updatePlanet.bind(this),
+      5000);
+  }
+
+  componentWillUnmount() {
+    this.interval = null;
+  }
 
   onError = (err) => {
     this.setState({error: true});
@@ -68,13 +74,6 @@ class PlanetDetailsContent extends Component {
     imageExists: false
   };
 
-  constructor(props) {
-    super(props);
-    if (!this.state.imageExists && this.props && this.props.id) {
-      this.imageExists();
-    }
-  };
-
   imageExists = async () => {
     const url =
       `https://starwars-visualguide.com/assets/img/planets/${this.props.id}.jpg`;
@@ -82,8 +81,14 @@ class PlanetDetailsContent extends Component {
 
     if (res !== 404) {
       this.setState({imageExists: true});
+    } else {
+      this.setState({imageExists: false});
     }
   };
+
+  componentWillMount() {
+    this.imageExists();
+  }
 
   render() {
     const {id, name, population, rotationPeriod, diameter} = this.props;
@@ -92,18 +97,18 @@ class PlanetDetailsContent extends Component {
       const url = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
       if (this.state.imageExists) {
         return (
-          <img
-            className='rounded my-2 random-planet-img'
-            src={url} alt=""/>
+          <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
+            <img
+              className='rounded my-2 random-planet-img'
+              src={url} alt=""/>
+          </div>
         )
       }
     };
 
     return (
       <React.Fragment>
-        <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
-          {img()}
-        </div>
+        {img()}
         <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
           <header className='my-3'>
             <span>{name}</span>
