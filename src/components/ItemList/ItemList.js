@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './ItemList.css';
 import SwapiService from "../../services/SwapiService/SwapiService";
+import Spinner from "../Spinner/Spinner"
 
 export default class ItemList extends Component {
 
@@ -23,19 +24,26 @@ export default class ItemList extends Component {
     if (this.state.peopleList) {
       return this.state.peopleList.map((person) => {
         return (
-          <ItemListLink href={"#"} title={person.name}/>
+          <ItemListLink
+            key={person.id}
+            href={"#"}
+            title={person.name}
+            id={person.id}/>
         )
       })
     }
   }
 
   render() {
-    const peopleList = this.prepareList();
+    const { peopleList } = this.state;
+    const content = peopleList ? this.prepareList() : null;
+    const spinner = !peopleList ? <Spinner/> : null;
 
     return (
       <article className='itemList my-2'>
         <ul className='list-group'>
-          {peopleList}
+          {spinner}
+          {content}
         </ul>
       </article>
     )
@@ -44,8 +52,12 @@ export default class ItemList extends Component {
 
 const ItemListLink = ({href, title}) => {
   return (
-    <li className='list-group-item d-flex justify-content-between align-items-center hover-color'>
-      <a className='item-list-item-link' href={href}>{title}</a>
+    <li
+      className='list-group-item d-flex justify-content-between align-items-center hover-color'>
+      <a
+        className='item-list-item-link'
+        href={href}
+      >{title}</a>
     </li>
   )
 };

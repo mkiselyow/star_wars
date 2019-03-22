@@ -15,7 +15,8 @@ export default class RandomPlanet extends Component {
     population: null,
     rotationPeriod: null,
     diameter: null,
-    error: false
+    error: false,
+    imageExists: false
   };
 
   componentDidMount() {
@@ -38,17 +39,32 @@ export default class RandomPlanet extends Component {
     this.swapiService
       .getResource('planets', id)
       .then((planet) => {
-        this.setState({...planet})
+        this.setState({...planet});
+        this.imageExists();
       })
       .catch(this.onError);
   };
 
+  imageExists = async () => {
+    const url =
+      `https://starwars-visualguide.com/assets/img/planets/${this.state.id}.jpg`;
+    const res = (await fetch(url)).status;
+
+    if (res !== 404) {
+      this.setState({imageExists: true});
+    } else {
+      this.setState({imageExists: false});
+    }
+  };
+
   render() {
-    const {error, ...planet} = this.state;
+    const {error, imageExists, ...planet} = this.state;
     const isPlanetEmpty = !!Object.values(planet).join('');
     const isError = error;
     const content = isPlanetEmpty
-      ? <PlanetDetailsContent {...planet}/>
+      ? <PlanetDetailsContent
+        imageExists={imageExists}
+        planet={{...planet}}/>
       : null;
     const spinner = !isPlanetEmpty && !isError
       ? <Spinner/>
@@ -70,45 +86,13 @@ export default class RandomPlanet extends Component {
 }
 
 class PlanetDetailsContent extends Component {
-  state = {
-    imageExists: false
-  };
-
-  imageExists = async () => {
-    const url =
-      `https://starwars-visualguide.com/assets/img/planets/${this.props.id}.jpg`;
-    const res = (await fetch(url)).status;
-
-    if (res !== 404) {
-      this.setState({imageExists: true});
-    } else {
-      this.setState({imageExists: false});
-    }
-  };
-
-  componentWillMount() {
-    this.imageExists();
-  }
-
   render() {
-    const {id, name, population, rotationPeriod, diameter} = this.props;
-
-    const img = () => {
-      const url = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
-      if (this.state.imageExists) {
-        return (
-          <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
-            <img
-              className='rounded my-2 random-planet-img'
-              src={url} alt=""/>
-          </div>
-        )
-      }
-    };
+    const {id, name, population, rotationPeriod, diameter} = this.props.planet;
+    const imageExists = this.props.imageExists;
 
     return (
       <React.Fragment>
-        {img()}
+        {imageExists ? <PlanetDetailsImg id={id}/> : null}
         <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
           <header className='my-3'>
             <span>{name}</span>
@@ -134,3 +118,15 @@ class PlanetDetailsContent extends Component {
     );
   }
 }
+
+
+const PlanetDetailsImg = ({id}) => {
+  const url = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
+  return (
+    <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
+      <img
+        className='rounded my-2 random-planet-img'
+        src={url} alt=""/>
+    </div>
+  )
+};
