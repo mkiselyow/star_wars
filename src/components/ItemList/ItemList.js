@@ -28,7 +28,9 @@ export default class ItemList extends Component {
             key={person.id}
             href={"#"}
             title={person.name}
-            id={person.id}/>
+            id={person.id}
+            onClick={() => this.props.onItemSelected(person.id)}
+          />
         )
       })
     }
@@ -50,14 +52,14 @@ export default class ItemList extends Component {
   }
 }
 
-const ItemListLink = ({href, title}) => {
+const ItemListLink = ({href, title, onClick}) => {
   return (
     <li
+      onClick={onClick}
       className='list-group-item d-flex justify-content-between align-items-center hover-color'>
-      <a
-        className='item-list-item-link'
-        href={href}
-      >{title}</a>
+      <div className='item-list-item-link'>
+        {title}
+      </div>
     </li>
   )
 };

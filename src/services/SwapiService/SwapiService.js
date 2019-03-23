@@ -5,20 +5,29 @@ class SwapiService {
     const full_url = `${this._url}/${resource}/${id ? id : ''}`;
     const res_full = await fetch(full_url);
     return await res_full.json()
-      .then((body) => {
+      .then(async (body) => {
         if (!res_full.ok) {
           throw new Error(`Could not fetch ${full_url}, \nstatus is ${res_full.status}`);
         }
         if (id) {
+          body.imageExists = await this.imageExists(resource, id);
           return this.Decorator(resource, body);
         }
         return body.results
-          .map((el, index) => this.Decorator(resource, el));
+          .map((el) => this.Decorator(resource, el));
       })
       .catch((err) => {
         console.log(err.message);
         throw err;
       });
+  };
+
+  async imageExists(resource, id) {
+    const url =
+      `https://starwars-visualguide.com/assets/img/${resource}/${id}.jpg`;
+    const res = (await fetch(url)).status;
+
+    return res ? res !== 404 : false;
   };
 
 
@@ -35,21 +44,27 @@ class SwapiService {
           name: objectToDecorate.name,
           population: objectToDecorate.population,
           rotationPeriod: objectToDecorate.rotation_period,
-          diameter: objectToDecorate.diameter
+          diameter: objectToDecorate.diameter,
+          imageExists: objectToDecorate.imageExists,
+          typeOfItem: 'planets'
           };
       case 'starships':
         return {
           id: this.getId(objectToDecorate),
           name: objectToDecorate.name,
           cargo_capacity: objectToDecorate.cargo_capacity,
-          passengers: objectToDecorate.passengers
+          passengers: objectToDecorate.passengers,
+          imageExists: objectToDecorate.imageExists,
+          typeOfItem: 'starships'
         };
       case 'people':
         return {
           id: this.getId(objectToDecorate),
           name: objectToDecorate.name,
           gender: objectToDecorate.gender,
-          mass: objectToDecorate.mass
+          mass: objectToDecorate.mass,
+          imageExists: objectToDecorate.imageExists,
+          typeOfItem: 'people'
         };
       default:
         return objectToDecorate;

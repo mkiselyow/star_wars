@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import SwapiService from '../../services/SwapiService/SwapiService';
 import Spinner from '../Spinner/Spinner';
+import DetailsContent from '../DetailsContent/DetailsContent';
 
 import './RandomPlanet.css';
 
@@ -12,9 +13,7 @@ export default class RandomPlanet extends Component {
   state = {
     id: null,
     name: null,
-    population: null,
-    rotationPeriod: null,
-    diameter: null,
+    typeOfItem: null,
     error: false,
     imageExists: false
   };
@@ -31,40 +30,35 @@ export default class RandomPlanet extends Component {
   }
 
   onError = (err) => {
+    console.log(err);
     this.setState({error: true});
+  };
+
+  onNoError = () => {
+    this.setState({error: false});
   };
 
   updatePlanet() {
     const id = Math.floor(Math.random()*25) + 2;
     this.swapiService
       .getResource('planets', id)
-      .then((planet) => {
-        this.setState({...planet});
-        this.imageExists();
+      .then((item) => {
+        this.setState({...item});
+        if (this.state.error) {
+          this.onNoError();
+        }
       })
-      .catch(this.onError);
-  };
-
-  imageExists = async () => {
-    const url =
-      `https://starwars-visualguide.com/assets/img/planets/${this.state.id}.jpg`;
-    const res = (await fetch(url)).status;
-
-    if (res !== 404) {
-      this.setState({imageExists: true});
-    } else {
-      this.setState({imageExists: false});
-    }
+      .catch((err) => this.onError(err));
   };
 
   render() {
-    const {error, imageExists, ...planet} = this.state;
-    const isPlanetEmpty = !!Object.values(planet).join('');
+    const {error, imageExists, ...item} = this.state;
+    const isPlanetEmpty = !!Object.values(item).join('');
     const isError = error;
     const content = isPlanetEmpty
-      ? <PlanetDetailsContent
+      ? <DetailsContent
         imageExists={imageExists}
-        planet={{...planet}}/>
+        item={{...item}}/>
       : null;
     const spinner = !isPlanetEmpty && !isError
       ? <Spinner/>
@@ -84,49 +78,3 @@ export default class RandomPlanet extends Component {
     )
   }
 }
-
-class PlanetDetailsContent extends Component {
-  render() {
-    const {id, name, population, rotationPeriod, diameter} = this.props.planet;
-    const imageExists = this.props.imageExists;
-
-    return (
-      <React.Fragment>
-        {imageExists ? <PlanetDetailsImg id={id}/> : null}
-        <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
-          <header className='my-3'>
-            <span>{name}</span>
-          </header>
-          <table className="table table-hover">
-            <tbody>
-            <tr className="table-active">
-              <th scope="row">Population</th>
-              <td>{population}</td>
-            </tr>
-            <tr className="table-active">
-              <th scope="row">Rotation Period</th>
-              <td>{rotationPeriod}</td>
-            </tr>
-            <tr className="table-active">
-              <th scope="row">Diameter</th>
-              <td>{diameter}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </React.Fragment>
-    );
-  }
-}
-
-
-const PlanetDetailsImg = ({id}) => {
-  const url = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
-  return (
-    <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>
-      <img
-        className='rounded my-2 random-planet-img'
-        src={url} alt=""/>
-    </div>
-  )
-};

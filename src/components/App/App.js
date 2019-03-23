@@ -3,14 +3,19 @@ import SwapiService from '../../services/SwapiService/SwapiService';
 import CssGoesOverChars from '../../services/CssGoesOverChars/CssGoesOverChars';
 import Header from '../Header/Header';
 import ItemList from "../ItemList/ItemList";
-// import PersonDetails from "../PersonDetails/PersonDetails";
+import PersonDetails from "../PersonDetails/PersonDetails";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
-import PlanetDetails from "../PlanetDetails/PlanetDetails";
+// import PlanetDetails from "../PlanetDetails/PlanetDetails";
 // import StarshipDetails from "../StarshipDetails/StarshipDetails";
 
 import './App.css';
 
 export default class App extends Component {
+
+  state = {
+    selectedPerson: null
+  };
+
   isFetchInProgress = false;
 
   changeProgress = (boolean) => {
@@ -19,6 +24,12 @@ export default class App extends Component {
       document.getElementById('progress')
         .style.visibility = this.isFetchInProgress ? 'visible' : 'hidden';
     }
+  };
+
+  onPersonSelected = (id) => {
+    this.setState({
+      selectedPerson: id
+    })
   };
 
   componentDidMount() {
@@ -65,10 +76,10 @@ export default class App extends Component {
 
         <div className='row mb2'>
           <div className='col-md-6'>
-            <ItemList/>
+            <ItemList onItemSelected={this.onPersonSelected}/>
           </div>
           <div className='col-md-6'>
-            <PlanetDetails/>
+            <PersonDetails id={this.state.selectedPerson}/>
           </div>
         </div>
       </div>
