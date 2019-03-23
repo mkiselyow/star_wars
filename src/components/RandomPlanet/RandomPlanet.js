@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import SwapiService from '../../services/SwapiService/SwapiService';
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
+import Error from '../Error/Error'
 
 import './RandomPlanet.css';
 
@@ -64,7 +65,7 @@ export default class RandomPlanet extends Component {
       ? <Spinner/>
       : null;
     const errorMsg = isError
-      ? <div>An error occurred</div>
+      ? <Error/>
       : null;
 
     return (
@@ -77,4 +78,4 @@ export default class RandomPlanet extends Component {
       </article>
     )
   }
-}
+};

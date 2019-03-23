@@ -2,19 +2,12 @@ import React, {Component} from 'react';
 import SwapiService from '../../services/SwapiService/SwapiService';
 import CssGoesOverChars from '../../services/CssGoesOverChars/CssGoesOverChars';
 import Header from '../Header/Header';
-import ItemList from "../ItemList/ItemList";
-import PersonDetails from "../PersonDetails/PersonDetails";
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
-// import PlanetDetails from "../PlanetDetails/PlanetDetails";
-// import StarshipDetails from "../StarshipDetails/StarshipDetails";
+import PeoplePage from '../PeoplePage/PeoplePage';
 
 import './App.css';
 
 export default class App extends Component {
-
-  state = {
-    selectedPerson: null
-  };
 
   isFetchInProgress = false;
 
@@ -26,15 +19,9 @@ export default class App extends Component {
     }
   };
 
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id
-    })
-  };
-
   componentDidMount() {
     CssGoesOverChars.prototype.start('dynamicText');
-  }
+  };
 
   render() {
     this.changeProgress(true);
@@ -74,14 +61,7 @@ export default class App extends Component {
 
         <RandomPlanet/>
 
-        <div className='row mb2'>
-          <div className='col-md-6'>
-            <ItemList onItemSelected={this.onPersonSelected}/>
-          </div>
-          <div className='col-md-6'>
-            <PersonDetails id={this.state.selectedPerson}/>
-          </div>
-        </div>
+        <PeoplePage/>
       </div>
     )
   }

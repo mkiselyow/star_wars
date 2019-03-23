@@ -1,19 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './Header.css';
 
-export default class Header extends Component {
-  render() {
-    return (
-      <header className='header'>
-        <ul className="nav nav-list-item-container">
-          <Link href={"#"} title="People"/>
-          <Link href={"#"} title="Planets"/>
-          <Link href={"#"} title="Ships"/>
-        </ul>
-      </header>
-    )
-  }
-}
+const Header = () => {
+  return (
+    <header className='header'>
+      <ul className="nav nav-list-item-container">
+        <Link href={"#"} title="People"/>
+        <Link href={"#"} title="Planets"/>
+        <Link href={"#"} title="Ships"/>
+      </ul>
+    </header>
+  )
+};
 
 const Link = ({href, title}) => {
   return (
@@ -22,3 +20,5 @@ const Link = ({href, title}) => {
     </li>
   )
 };
+
+export default Header;

@@ -52,7 +52,7 @@ export default class ItemList extends Component {
   }
 }
 
-const ItemListLink = ({href, title, onClick}) => {
+const ItemListLink = ({title, onClick}) => {
   return (
     <li
       onClick={onClick}
