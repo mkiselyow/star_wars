@@ -11,7 +11,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,5 +28,8 @@
   "repository": "https://github.com/mkiselyow/star_wars.git",
   "author": "mkyse <mkyse@softserveinc.com>",
   "license": "MIT",
-  "homepage" : "http://mkiselyow.github.io/star_wars"
+  "homepage": "http://mkiselyow.github.io/star_wars",
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
