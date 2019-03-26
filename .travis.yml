@@ -7,7 +7,6 @@ cache:
     - "node_modules"
 
 script:
-  - CI=false yarn test
   - CI=false yarn build
   # - echo my-custom-domain.ru > build/CNAME
 
