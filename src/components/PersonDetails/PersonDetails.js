@@ -15,14 +15,20 @@ export default class PersonDetails extends Component {
     name: null,
     typeOfItem: null,
     error: false,
-    imageExists: false
+    imageExists: false,
+    fetchingNextObj: true
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
+      this.fetchingNextObj(true);
       this.fetchPerson();
     }
   };
+
+  fetchingNextObj(boolean) {
+    this.setState({fetchingNextObj: boolean})
+  }
 
   onError = (err) => {
     console.log(err);
@@ -39,6 +45,7 @@ export default class PersonDetails extends Component {
       .getResource('people', id)
       .then((item) => {
         this.setState({...item});
+        this.fetchingNextObj(false);
         if (this.state.error) {
           this.onNoError();
         }
@@ -47,8 +54,8 @@ export default class PersonDetails extends Component {
   };
 
   render() {
-    const {error, imageExists, ...item} = this.state;
-    const isPlanetEmpty = !!Object.values(item).join('');
+    const {error, imageExists, fetchingNextObj, ...item} = this.state;
+    const isPlanetEmpty = !fetchingNextObj && !!Object.values(item).join('');
     const isError = error;
     const isItemSelected = this.props.id;
     const content = isPlanetEmpty
