@@ -24,15 +24,16 @@ export default class RandomPlanet extends Component {
     this.interval = setInterval(
       this.updatePlanet.bind(this),
       5000);
-  }
+  };
 
   componentWillUnmount() {
     this.interval = null;
-  }
+  };
 
   onError = (err) => {
-    console.log(err);
+    console.log(err + ' === in random planet');
     this.setState({error: true});
+    this.interval = null;
   };
 
   onNoError = () => {

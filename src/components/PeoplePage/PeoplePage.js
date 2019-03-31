@@ -20,7 +20,13 @@ export default class PeoplePage extends Component {
     this.setState({
       hasError: true
     })
-  }
+  };
+
+  onError = () => {
+    this.setState({
+      hasError: true
+    })
+  };
 
   render() {
 
@@ -31,10 +37,10 @@ export default class PeoplePage extends Component {
     return (
       <div className='row mb2'>
         <div className='col-md-6'>
-          <ItemList onItemSelected={this.onPersonSelected}/>
+          <ItemList onItemSelected={this.onPersonSelected} pageOnError={this.onError}/>
         </div>
         <div className='col-md-6'>
-          <PersonDetails id={this.state.selectedPerson}/>
+          <PersonDetails id={this.state.selectedPerson} pageOnError={this.onError}/>
         </div>
       </div>
     )

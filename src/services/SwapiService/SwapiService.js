@@ -3,12 +3,9 @@ class SwapiService {
 
   async getResource(resource = 'people', id) {
     const full_url = `${this._url}/${resource}/${id ? id : ''}`;
-    const res_full = await fetch(full_url);
-    return await res_full.json()
+    return await fetch(full_url)
+      .then((body) => this.handleErrors(body))
       .then(async (body) => {
-        if (!res_full.ok) {
-          throw new Error(`Could not fetch ${full_url}, \nstatus is ${res_full.status}`);
-        }
         if (id) {
           body.imageExists = await this.imageExists(resource, id);
           return this.Decorator(resource, body);
@@ -25,12 +22,21 @@ class SwapiService {
   async imageExists(resource, id) {
     const url =
       `https://starwars-visualguide.com/assets/img/${resource}/${id}.jpg`;
-    const res = (await fetch(url)).status;
+    let status;
+      await fetch(url)
+        .then((body) => this.handleErrors(body))
+        .then((body) => status = body.status)
+        .catch((err) => console.log(err));
 
-    return res ? res !== 404 : false;
+    return status ? status !== 404 : false;
   };
 
-
+  handleErrors(response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  };
 
   getId(objectToDecorate) {
     return objectToDecorate.url.match(/\/([0-9]*)\/$/)[1]

@@ -18,7 +18,12 @@ export default class ItemList extends Component {
         this.setState({peopleList: people});
       })
       .catch(this.onError);
-  }
+  };
+
+  onError = () => {
+    this.setState({error: true});
+    this.props.pageOnError();
+  };
 
   prepareList() {
     if (this.state.peopleList) {
