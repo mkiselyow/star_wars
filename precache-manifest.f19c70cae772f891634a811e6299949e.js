@@ -12,19 +12,19 @@ self.__precacheManifest = [
     "url": "/star_wars/static/js/runtime~main.b5d694a2.js"
   },
   {
-    "revision": "b304844a0f1c951eae68",
-    "url": "/star_wars/static/js/main.b304844a.chunk.js"
+    "revision": "ff274ebec082f46eef65",
+    "url": "/star_wars/static/js/main.ff274ebe.chunk.js"
   },
   {
     "revision": "e41f20519dbd42387098",
     "url": "/star_wars/static/js/1.e41f2051.chunk.js"
   },
   {
-    "revision": "b304844a0f1c951eae68",
+    "revision": "ff274ebec082f46eef65",
     "url": "/star_wars/static/css/main.40546beb.chunk.css"
   },
   {
-    "revision": "2e537cdbcb6801f0b63255e93b976a81",
+    "revision": "a2b9602ae12f05e5c27e1e8d241c0a39",
     "url": "/star_wars/index.html"
   }
 ];
