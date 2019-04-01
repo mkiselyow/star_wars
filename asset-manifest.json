@@ -1,14 +1,14 @@
 {
-  "main.css": "/star_wars/static/css/main.40546beb.chunk.css",
-  "main.js": "/star_wars/static/js/main.ff274ebe.chunk.js",
-  "main.js.map": "/star_wars/static/js/main.ff274ebe.chunk.js.map",
-  "static/js/1.e41f2051.chunk.js": "/star_wars/static/js/1.e41f2051.chunk.js",
-  "static/js/1.e41f2051.chunk.js.map": "/star_wars/static/js/1.e41f2051.chunk.js.map",
+  "main.css": "/star_wars/static/css/main.82f47ed6.chunk.css",
+  "main.js": "/star_wars/static/js/main.47ec03bd.chunk.js",
+  "main.js.map": "/star_wars/static/js/main.47ec03bd.chunk.js.map",
+  "static/js/1.38078bd1.chunk.js": "/star_wars/static/js/1.38078bd1.chunk.js",
+  "static/js/1.38078bd1.chunk.js.map": "/star_wars/static/js/1.38078bd1.chunk.js.map",
   "runtime~main.js": "/star_wars/static/js/runtime~main.b5d694a2.js",
   "runtime~main.js.map": "/star_wars/static/js/runtime~main.b5d694a2.js.map",
-  "static/css/main.40546beb.chunk.css.map": "/star_wars/static/css/main.40546beb.chunk.css.map",
+  "static/css/main.82f47ed6.chunk.css.map": "/star_wars/static/css/main.82f47ed6.chunk.css.map",
   "static/media/CssGoesOverChars.css": "/star_wars/static/media/Starjedi.cc3019aa.ttf",
   "index.html": "/star_wars/index.html",
-  "precache-manifest.f19c70cae772f891634a811e6299949e.js": "/star_wars/precache-manifest.f19c70cae772f891634a811e6299949e.js",
+  "precache-manifest.d4b553a668d95b1966acc77661295885.js": "/star_wars/precache-manifest.d4b553a668d95b1966acc77661295885.js",
   "service-worker.js": "/star_wars/service-worker.js"
 }
