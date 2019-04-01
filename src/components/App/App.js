@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import SwapiService from '../../services/SwapiService/SwapiService';
-import CssGoesOverChars from '../../services/CssGoesOverChars/CssGoesOverChars';
 import Header from '../Header/Header';
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
 import PeoplePage from '../PeoplePage/PeoplePage';
+import Title from '../Title/Title';
 
 import './App.css';
 
@@ -33,7 +33,7 @@ export default class App extends Component {
 
     return (
       <div className='app container'>
-        <CssGoesOverChars/>
+        <Title/>
         <Header/>
         <div  className='d-flex justify-content-center align-items-center m-3'>
           <div

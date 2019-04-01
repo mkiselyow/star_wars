@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import './CssGoesOverChars.css';
+import './Title.css';
 
-export default class CssGoesOverChars extends Component {
+export default class Title extends Component {
   activeLetterClass = 'char-active';
 
   state = {
