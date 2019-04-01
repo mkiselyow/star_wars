@@ -19,13 +19,9 @@ export default class App extends Component {
     }
   };
 
-  componentDidMount() {
-    CssGoesOverChars.prototype.start('dynamicText');
-  };
-
   render() {
     this.changeProgress(true);
-    (new SwapiService()).getResource('planets')
+    (new SwapiService()).getAllResources('planets')
       .then((body) => {
         this.changeProgress(false);
         console.log(body);
@@ -37,10 +33,7 @@ export default class App extends Component {
 
     return (
       <div className='app container'>
-        <article
-          id='dynamicText'
-          className='my-3'
-        >Star Wars Database</article>
+        <CssGoesOverChars/>
         <Header/>
         <div  className='d-flex justify-content-center align-items-center m-3'>
           <div

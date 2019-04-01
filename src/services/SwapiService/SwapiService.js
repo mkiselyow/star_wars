@@ -1,48 +1,31 @@
 class SwapiService {
   _url = 'https://swapi.co/api';
 
-  async getResource(resource = 'people', id) {
-    const full_url = `${this._url}/${resource}/${id ? id : ''}`;
-    return await fetch(full_url)
-      .then((body) => this.handleErrors(body))
-      .then(async (body) => {
-        if (id) {
-          body.imageExists = await this.imageExists(resource, id);
-          return this.Decorator(resource, body);
-        }
-        return body.results
-          .map((el) => this.Decorator(resource, el));
-      })
-      .catch((err) => {
-        console.log(err.message);
-        throw err;
-      });
+  async getAllResources(resourceType = 'people') {
+    const url = `${this._url}/${resourceType}/`;
+    const resources = await (await fetch(url)).json();
+    return resources.results.map(resource => this.decorate(resourceType, resource))
+  };
+
+  async getResourceById(resourceType = 'people', id) {
+    const url = `${this._url}/${resourceType}/${id}`;
+    const resource = await (await fetch(url)).json();
+    const isImageExists = await this.imageExists(resourceType, id);
+    return this.decorate(resourceType, resource, isImageExists)
   };
 
   async imageExists(resource, id) {
     const url =
       `https://starwars-visualguide.com/assets/img/${resource}/${id}.jpg`;
-    let status;
-      await fetch(url)
-        .then((body) => this.handleErrors(body))
-        .then((body) => status = body.status)
-        .catch((err) => console.log(err));
-
-    return status ? status !== 404 : false;
-  };
-
-  handleErrors(response) {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response.json();
+    const resp = await fetch(url);
+    return resp.status !== 404;
   };
 
   getId(objectToDecorate) {
     return objectToDecorate.url.match(/\/([0-9]*)\/$/)[1]
   };
 
-  Decorator(resource, objectToDecorate) {
+  decorate(resource, objectToDecorate, isImageExists = false) {
     switch (resource) {
       case 'planets':
         return {
@@ -51,7 +34,7 @@ class SwapiService {
           population: objectToDecorate.population,
           rotationPeriod: objectToDecorate.rotation_period,
           diameter: objectToDecorate.diameter,
-          imageExists: objectToDecorate.imageExists,
+          imageExists: isImageExists,
           typeOfItem: 'planets'
           };
       case 'starships':
@@ -60,7 +43,7 @@ class SwapiService {
           name: objectToDecorate.name,
           cargo_capacity: objectToDecorate.cargo_capacity,
           passengers: objectToDecorate.passengers,
-          imageExists: objectToDecorate.imageExists,
+          imageExists: isImageExists,
           typeOfItem: 'starships'
         };
       case 'people':
@@ -69,7 +52,7 @@ class SwapiService {
           name: objectToDecorate.name,
           gender: objectToDecorate.gender,
           mass: objectToDecorate.mass,
-          imageExists: objectToDecorate.imageExists,
+          imageExists: isImageExists,
           typeOfItem: 'people'
         };
       default:

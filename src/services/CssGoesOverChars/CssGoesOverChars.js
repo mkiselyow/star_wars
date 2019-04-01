@@ -1,42 +1,60 @@
+import React, {Component} from 'react';
 import './CssGoesOverChars.css';
 
-export default class CssGoesOverChars {
-  start(elementId) {
-    const article = document.getElementById(elementId);
-    const text = article.innerHTML;
-    article.innerHTML = text.split('')
-      .map((char) => `<div class='char-item'>${char}</div>`)
-      .join('\n');
-    article.classList.add('word-wrapper');
+export default class CssGoesOverChars extends Component {
+  activeLetterClass = 'char-active';
 
-    const nodes = document
-      .querySelector('.word-wrapper')
-      .children;
+  state = {
+    text: 'Star Wars Database',
+    activeLetter: 0
+  };
 
-    for (let i = 0, n = 0; i < text.length; i++) {
-      if (text.charAt(i) !== ' ') {
-        const invokeClassToggle = () => {
-          nodes[i].classList.add('char-active');
-          setTimeout(
-            () => nodes[i].classList.remove('char-active'),
-            1000
-          );
+  componentDidMount () {
+    setTimeout(this.nextActiveLetter.bind(this), 1000);
+  };
 
-          setTimeout(
-            invokeClassToggle,
-            text.replace(/ /g, '').length * 1000
-          );
-        };
-
-        setTimeout(
-          invokeClassToggle,
-          1000 + (n * 1000)
-        );
-
-        if (n < text.replace(/ /g, '').length) {
-          n++;
-        }
-      }
+  componentDidUpdate(prevState) {
+    if (prevState.activeLetter !== this.state.activeLetter) {
+      setTimeout(this.nextActiveLetter.bind(this), 1000);
     }
+  }
+
+  nextActiveLetter() {
+    this.setState(({text, activeLetter}) => {
+      return {
+        activeLetter: (text.length > activeLetter) ? ++activeLetter : 0
+      }
+    })
+  };
+
+  wrapLetters() {
+    const {text, activeLetter} = {...this.state};
+    let counter = 0;
+
+    return text.split('').map((char, index) => {
+      let isActive = null;
+
+      if (char !== ' ') {
+        isActive = activeLetter === counter ? this.activeLetterClass : null;
+        counter++;
+      }
+
+      return (
+        <div
+          key={index}
+          className={`char-item ${isActive}`}>{char}
+        </div>
+      )
+    })
+  }
+
+  render () {
+    const text = this.wrapLetters();
+    return (
+      <article
+        id='dynamicText'
+        className='my-3 word-wrapper'
+      >{text}</article>
+    );
   }
 };

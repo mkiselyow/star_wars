@@ -42,7 +42,7 @@ export default class PersonDetails extends Component {
   fetchPerson() {
     const id = this.props.id;
     this.swapiService
-      .getResource('people', id)
+      .getResourceById('people', id)
       .then((item) => {
         this.setState({...item});
         this.fetchingNextObj(false);
