@@ -3,6 +3,10 @@ import React from 'react';
 import './Img.css';
 
 const Img = ({type, id}) => {
+  if (type === 'people') {
+    type = 'characters'
+  }
+
   const url = `https://starwars-visualguide.com/assets/img/${type}/${id}.jpg`;
   return (
     <div className='col-12 col-sm-6 d-flex justify-content-center align-items-center'>

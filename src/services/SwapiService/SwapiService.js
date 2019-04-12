@@ -15,6 +15,10 @@ class SwapiService {
   };
 
   async imageExists(resource, id) {
+    if (resource === 'people') {
+      resource = 'characters'
+    }
+
     const url =
       `https://starwars-visualguide.com/assets/img/${resource}/${id}.jpg`;
     const resp = await fetch(url);
