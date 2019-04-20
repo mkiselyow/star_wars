@@ -37,7 +37,10 @@ export default class PeoplePage extends Component {
     return (
       <div className='row mb2'>
         <div className='col-md-6'>
-          <ItemList onItemSelected={this.onPersonSelected} pageOnError={this.onError}/>
+          <ItemList
+            onItemSelected={this.onPersonSelected}
+            pageOnError={this.onError}
+            itemsType={'people'}/>
         </div>
         <div className='col-md-6'>
           <PersonDetails id={this.state.selectedPerson} pageOnError={this.onError}/>

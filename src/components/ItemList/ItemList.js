@@ -8,14 +8,14 @@ export default class ItemList extends Component {
   swapiService = new SwapiService();
 
   state = {
-    peopleList: null
+    itemList: null
   };
 
   componentDidMount() {
     this.swapiService
-      .getAllResources('people')
-      .then((people) => {
-        this.setState({peopleList: people});
+      .getAllResources(this.props.itemsType)
+      .then((items) => {
+        this.setState({itemList: items});
       })
       .catch(this.onError);
   };
@@ -26,15 +26,15 @@ export default class ItemList extends Component {
   };
 
   prepareList() {
-    if (this.state.peopleList) {
-      return this.state.peopleList.map((person) => {
+    if (this.state.itemList) {
+      return this.state.itemList.map((item) => {
         return (
           <ItemListLink
-            key={person.id}
+            key={item.id}
             href={"#"}
-            title={person.name}
-            id={person.id}
-            onClick={() => this.props.onItemSelected(person.id)}
+            title={item.name}
+            id={item.id}
+            onClick={() => this.props.onItemSelected(item.id)}
           />
         )
       })
@@ -42,9 +42,9 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { peopleList } = this.state;
-    const content = peopleList ? this.prepareList() : null;
-    const spinner = !peopleList ? <Spinner/> : null;
+    const { itemList } = this.state;
+    const content = itemList ? this.prepareList() : null;
+    const spinner = !itemList ? <Spinner/> : null;
 
     return (
       <article className='itemList my-2'>
