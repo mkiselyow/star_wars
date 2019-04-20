@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import SwapiService from '../../services/SwapiService/SwapiService';
 import Header from '../Header/Header';
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
-import PeoplePage from '../PeoplePage/PeoplePage';
+import ItemsPage from '../ItemsPage/ItemsPage';
 import Title from '../Title/Title';
 
 import './App.css';
@@ -54,7 +54,15 @@ export default class App extends Component {
 
         <RandomPlanet/>
 
-        <PeoplePage/>
+        <ItemsPage
+          itemsType={'people'}
+        />
+        <ItemsPage
+          itemsType={'starships'}
+        />
+        <ItemsPage
+          itemsType={'planets'}
+        />
       </div>
     )
   }

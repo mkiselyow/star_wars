@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import ItemList from '../ItemList/ItemList';
-import PersonDetails from '../PersonDetails/PersonDetails';
+import ItemDetails from '../ItemDetails/ItemDetails';
 import Error from '../Error/Error'
 
-export default class PeoplePage extends Component {
+export default class ItemsPage extends Component {
 
   state = {
-    selectedPerson: null,
+    selectedItem: null,
     hasError: false
   };
 
-  onPersonSelected = (id) => {
+  onItemSelected = (id) => {
     this.setState({
-      selectedPerson: id
+      selectedItem: id
     })
   };
 
@@ -29,6 +29,7 @@ export default class PeoplePage extends Component {
   };
 
   render() {
+    const itemsType = this.props.itemsType;
 
     if (this.state.hasError) {
       return <Error/>
@@ -38,12 +39,16 @@ export default class PeoplePage extends Component {
       <div className='row mb2'>
         <div className='col-md-6'>
           <ItemList
-            onItemSelected={this.onPersonSelected}
+            onItemSelected={this.onItemSelected}
             pageOnError={this.onError}
-            itemsType={'people'}/>
+            itemsType={itemsType}/>
         </div>
         <div className='col-md-6'>
-          <PersonDetails id={this.state.selectedPerson} pageOnError={this.onError}/>
+          <ItemDetails
+            id={this.state.selectedItem}
+            pageOnError={this.onError}
+            itemType={itemsType}
+          />
         </div>
       </div>
     )

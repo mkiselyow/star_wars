@@ -4,9 +4,9 @@ import SwapiService from '../../services/SwapiService/SwapiService';
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
 
-import './PersonDetails.css';
+import './ItemDetails.css';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
   swapiService = new SwapiService();
 
@@ -22,7 +22,7 @@ export default class PersonDetails extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
       this.fetchingNextObj(true);
-      this.fetchPerson();
+      this.fetchItem(this.props.itemType);
     }
   };
 
@@ -39,10 +39,10 @@ export default class PersonDetails extends Component {
     this.setState({error: false});
   };
 
-  fetchPerson() {
+  fetchItem(itemType) {
     const id = this.props.id;
     this.swapiService
-      .getResourceById('people', id)
+      .getResourceById(itemType, id)
       .then((item) => {
         this.setState({...item});
         this.fetchingNextObj(false);
@@ -55,15 +55,15 @@ export default class PersonDetails extends Component {
 
   render() {
     const {error, imageExists, fetchingNextObj, ...item} = this.state;
-    const isPlanetEmpty = !fetchingNextObj && !!Object.values(item).join('');
+    const isItemEmpty = !fetchingNextObj && !!Object.values(item).join('');
     const isError = error;
     const isItemSelected = this.props.id;
-    const content = isPlanetEmpty
+    const content = isItemEmpty
       ? <DetailsContent
         imageExists={imageExists}
         item={{...item}}/>
       : null;
-    const spinner = !isPlanetEmpty && !isError && isItemSelected
+    const spinner = !isItemEmpty && !isError && isItemSelected
       ? <Spinner/>
       : null;
     const errorMsg = isError
