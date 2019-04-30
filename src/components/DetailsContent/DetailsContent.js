@@ -8,7 +8,7 @@ export default class DetailsContent extends Component {
       return [
         ['Gender', obj.gender],
         ['Mass', obj.mass],
-        ['Mass', obj.mass]
+        ['Height', obj.height]
       ];
     } else if (obj.typeOfItem === "planets") {
       return [
@@ -20,7 +20,7 @@ export default class DetailsContent extends Component {
       return [
         ['Cargo Capacity', obj.cargo_capacity],
         ['Passengers', obj.passengers],
-        ['Passengers', obj.passengers]
+        ['Hyperdrive Rating', obj.hyperdrive_rating]
       ];
     }
   }
@@ -28,6 +28,7 @@ export default class DetailsContent extends Component {
   render() {
     const {id, name, ...properties} = this.props.item;
     const imageExists = this.props.imageExists;
+    const propertiesObj = this.mapPropertiesNames;
 
     return (
       <React.Fragment>
@@ -38,30 +39,18 @@ export default class DetailsContent extends Component {
           </header>
           <table className="table table-hover">
             <tbody>
-            <tr className="table-active">
-              <th scope="row">
-                {this.mapPropertiesNames(properties)[0][0]}
-              </th>
-              <td>
-                {this.mapPropertiesNames(properties)[0][1]}
-              </td>
-            </tr>
-            <tr className="table-active">
-              <th scope="row">
-                {this.mapPropertiesNames(properties)[1][0]}
-              </th>
-              <td>
-                {this.mapPropertiesNames(properties)[1][1]}
-              </td>
-            </tr>
-            <tr className="table-active">
-              <th scope="row">
-                {this.mapPropertiesNames(properties)[2][0]}
-              </th>
-              <td>
-                {this.mapPropertiesNames(properties)[2][1]}
-              </td>
-            </tr>
+            <Row
+              propertyName={propertiesObj(properties)[0][0]}
+              propertyValue={propertiesObj(properties)[0][1]}
+            />
+            <Row
+              propertyName={propertiesObj(properties)[1][0]}
+              propertyValue={propertiesObj(properties)[1][1]}
+            />
+            <Row
+              propertyName={propertiesObj(properties)[2][0]}
+              propertyValue={propertiesObj(properties)[2][1]}
+            />
             </tbody>
           </table>
         </div>
@@ -69,3 +58,16 @@ export default class DetailsContent extends Component {
     );
   }
 }
+
+const Row = ({propertyName, propertyValue}) => {
+  return (
+    <tr className="table-active">
+      <th scope="row">
+        {propertyName}
+      </th>
+      <td>
+        {propertyValue}
+      </td>
+    </tr>
+  )
+};

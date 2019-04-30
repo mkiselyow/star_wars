@@ -47,6 +47,7 @@ class SwapiService {
           name: objectToDecorate.name,
           cargo_capacity: objectToDecorate.cargo_capacity,
           passengers: objectToDecorate.passengers,
+          hyperdrive_rating: objectToDecorate.hyperdrive_rating,
           imageExists: isImageExists,
           typeOfItem: 'starships'
         };
@@ -56,6 +57,7 @@ class SwapiService {
           name: objectToDecorate.name,
           gender: objectToDecorate.gender,
           mass: objectToDecorate.mass,
+          height: objectToDecorate.height,
           imageExists: isImageExists,
           typeOfItem: 'people'
         };
