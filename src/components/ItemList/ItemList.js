@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './ItemList.css';
 import SwapiService from "../../services/SwapiService/SwapiService";
 import Spinner from "../Spinner/Spinner"
+import Error from "../Error/Error";
 
 export default class ItemList extends Component {
 
@@ -22,7 +23,6 @@ export default class ItemList extends Component {
 
   onError = () => {
     this.setState({error: true});
-    this.props.pageOnError();
   };
 
   prepareList() {
@@ -42,15 +42,17 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { itemList } = this.state;
+    const { itemList, error } = this.state;
     const content = itemList ? this.prepareList() : null;
-    const spinner = !itemList ? <Spinner/> : null;
+    const spinner = (!itemList && !error) ? <Spinner/> : null;
+    const errorMessage = error ? <Error/> : null;
 
     return (
       <article className='itemList my-2'>
         <ul className='list-group'>
           {spinner}
           {content}
+          {errorMessage}
         </ul>
       </article>
     )

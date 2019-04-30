@@ -5,6 +5,7 @@ import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
 
 import './ItemDetails.css';
+import Error from "../Error/Error";
 
 export default class ItemDetails extends Component {
 
@@ -32,7 +33,6 @@ export default class ItemDetails extends Component {
 
   onError = () => {
     this.setState({error: true});
-    this.props.pageOnError();
   };
 
   onNoError = () => {
@@ -67,7 +67,7 @@ export default class ItemDetails extends Component {
       ? <Spinner/>
       : null;
     const errorMsg = isError
-      ? <div>An error occurred</div>
+      ? <Error/>
       : null;
 
     return (
