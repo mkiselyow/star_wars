@@ -4,30 +4,11 @@ import SwapiService from "../../services/SwapiService/SwapiService";
 import Spinner from "../Spinner/Spinner"
 import Error from "../Error/Error";
 
-export default class ItemList extends Component {
-
-  swapiService = new SwapiService();
-
-  state = {
-    itemList: null
-  };
-
-  componentDidMount() {
-    this.swapiService
-      .getAllResources(this.props.itemsType)
-      .then((items) => {
-        this.setState({itemList: items});
-      })
-      .catch(this.onError);
-  };
-
-  onError = () => {
-    this.setState({error: true});
-  };
+class ItemList extends Component {
 
   prepareList() {
-    if (this.state.itemList) {
-      return this.state.itemList.map((item) => {
+    if (this.props.data) {
+      return this.props.data.map((item) => {
         return (
           <ItemListLink
             key={item.id}
@@ -42,9 +23,9 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { itemList, error } = this.state;
-    const content = itemList ? this.prepareList() : null;
-    const spinner = (!itemList && !error) ? <Spinner/> : null;
+    const { data, error } = this.props;
+    const content = data ? this.prepareList() : null;
+    const spinner = (!data && !error) ? <Spinner/> : null;
     const errorMessage = error ? <Error/> : null;
 
     return (
@@ -83,3 +64,36 @@ const renderItem = function(item) {
       return item.name;
   }
 };
+
+const withData = (View) => {
+  return class extends Component {
+
+    swapiService = new SwapiService();
+
+    state = {
+      data: null
+    };
+
+    componentDidMount() {
+      this.swapiService
+        .getAllResources(this.props.itemsType)
+        .then((items) => {
+          this.setState({data: items});
+        })
+        .catch(this.onError);
+    };
+
+    onError = () => {
+      this.setState({error: true});
+    };
+
+    render() {
+      const props = this.props;
+      const { data } = this.state;
+
+      return <View {...props} data={data}/>;
+    }
+  }
+};
+
+export default withData(ItemList);
