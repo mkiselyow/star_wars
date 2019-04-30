@@ -32,7 +32,7 @@ export default class ItemList extends Component {
           <ItemListLink
             key={item.id}
             href={"#"}
-            title={item.name}
+            title={renderItem.call(this, item)}
             id={item.id}
             onClick={() => this.props.onItemSelected(item.id)}
           />
@@ -67,4 +67,17 @@ const ItemListLink = ({title, onClick}) => {
       </div>
     </li>
   )
+};
+
+const renderItem = function(item) {
+  switch (this.props.itemsType) {
+    case 'people':
+      return `${item.name} (gender: ${item.gender})`;
+    case 'starships':
+      return `${item.name} (cargo capacity: ${item.cargo_capacity})`;
+    case 'planets':
+      return `${item.name} (diameter: ${item.diameter})`;
+    default:
+      return item.name;
+  }
 };
