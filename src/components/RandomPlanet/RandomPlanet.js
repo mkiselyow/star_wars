@@ -3,10 +3,11 @@ import React, {Component} from 'react';
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
 import Error from '../Error/Error';
+import withSwapiService from '../hoc-helpers/withSwapiService';
 
 import './RandomPlanet.css';
 
-export default class RandomPlanet extends Component {
+class RandomPlanet extends Component {
 
   state = {
     id: null,
@@ -77,3 +78,5 @@ export default class RandomPlanet extends Component {
     )
   }
 };
+
+export default withSwapiService(RandomPlanet);

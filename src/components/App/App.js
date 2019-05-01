@@ -5,14 +5,15 @@ import RandomPlanet from "../RandomPlanet/RandomPlanet";
 import ItemsPage from '../ItemsPage/ItemsPage';
 import Title from '../Title/Title';
 import {SwapiServiceProvider} from '../swapi-service-context/swapi-service-context';
-import {SwapiServiceConsumer} from '../swapi-service-context/swapi-service-context';
 
 import './App.css';
 
 export default class App extends Component {
+  state = {
+    swapiService: SwapiService
+  };
 
   isFetchInProgress = false;
-  SwapiService = new SwapiService();
 
   changeProgress = (boolean) => {
     this.isFetchInProgress = boolean;
@@ -22,9 +23,20 @@ export default class App extends Component {
     }
   };
 
+  onToggleAPI = () => {
+    this.setState(({swapiService}) => {
+      console.log(swapiService);
+      console.log(swapiService ? undefined : SwapiService);
+      const newState = SwapiService ? undefined : SwapiService;
+      return {
+        swapiService: newState
+      }
+    })
+  };
+
   render() {
     this.changeProgress(true);
-    (this.SwapiService).getAllResources('planets')
+    (this.state.swapiService).getAllResources('planets')
       .then((body) => {
         this.changeProgress(false);
         console.log(body);
@@ -36,9 +48,9 @@ export default class App extends Component {
 
     return (
       <div className='app container'>
-        <SwapiServiceProvider value={this.SwapiService}>
+        <SwapiServiceProvider value={this.state.swapiService}>
           <Title/>
-          <Header/>
+          <Header onToggleAPI={this.onToggleAPI}/>
           <div  className='d-flex justify-content-center align-items-center m-3'>
             <div
               className="progress"
@@ -56,15 +68,7 @@ export default class App extends Component {
             </div>
           </div>
 
-          <SwapiServiceConsumer>
-            {
-              (swapiService) => {
-                return (
-                  <RandomPlanet swapiService={swapiService}/>
-                )
-              }
-            }
-          </SwapiServiceConsumer>
+          <RandomPlanet/>
 
           <ItemsPage
             itemsType={'people'}
