@@ -3,6 +3,7 @@ import './ItemList.css';
 import Spinner from "../Spinner/Spinner"
 import Error from "../Error/Error";
 import withData from "../hoc-helpers/withData";
+import withSwapiService from "../hoc-helpers/withSwapiService";
 
 const ItemList = ({onItemSelected, data, error}) => {
 
@@ -62,4 +63,4 @@ const renderItem = function(item) {
   }
 };
 
-export default withData(ItemList);
+export default withSwapiService(withData(ItemList));
