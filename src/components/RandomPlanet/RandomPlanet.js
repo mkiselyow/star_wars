@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 
-import SwapiService from '../../services/SwapiService/SwapiService';
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
-import Error from '../Error/Error'
+import Error from '../Error/Error';
 
 import './RandomPlanet.css';
 
 export default class RandomPlanet extends Component {
-
-  swapiService = new SwapiService();
 
   state = {
     id: null,
@@ -42,7 +39,7 @@ export default class RandomPlanet extends Component {
 
   updatePlanet() {
     const id = Math.floor(Math.random()*25) + 2;
-    this.swapiService
+    this.props.swapiService
       .getResourceById('planets', id)
       .then((item) => {
         this.setState({...item});
