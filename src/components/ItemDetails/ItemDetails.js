@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 
-import SwapiService from '../../services/SwapiService/SwapiService';
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
 
 import './ItemDetails.css';
 import Error from "../Error/Error";
+import withSwapiService from '../hoc-helpers/withSwapiService';
 
-export default class ItemDetails extends Component {
-
-  swapiService = new SwapiService();
+class ItemDetails extends Component {
 
   state = {
     id: null,
@@ -41,7 +39,7 @@ export default class ItemDetails extends Component {
 
   fetchItem(itemType) {
     const id = this.props.id;
-    this.swapiService
+    this.props.swapiService
       .getResourceById(itemType, id)
       .then((item) => {
         this.setState({...item});
@@ -81,3 +79,5 @@ export default class ItemDetails extends Component {
     )
   }
 }
+
+export default withSwapiService(ItemDetails);

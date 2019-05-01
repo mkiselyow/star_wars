@@ -24,7 +24,8 @@ export default class ItemsPage extends Component {
           <div className='col-md-6'>
             <ItemList
               onItemSelected={this.onItemSelected}
-              itemsType={itemsType}/>
+              itemsType={itemsType}
+            />
           </div>
           <div className='col-md-6'>
             <ItemDetails

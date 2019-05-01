@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
-import SwapiService from "../../services/SwapiService/SwapiService";
 
 
 const withData = (View) => {
   return class extends Component {
-
-    swapiService = new SwapiService();
 
     state = {
       data: null
     };
 
     componentDidMount() {
-      this.swapiService
+      this.props.swapiService
         .getAllResources(this.props.itemsType)
         .then((items) => {
           this.setState({data: items});
