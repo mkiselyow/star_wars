@@ -10,13 +10,20 @@ export default class Title extends Component {
   };
 
   componentDidMount () {
-    setTimeout(this.nextActiveLetter.bind(this), 1000);
+    const intervalId = setTimeout(this.nextActiveLetter.bind(this), 1000);
+    this.intervalId = intervalId;
   };
 
   componentDidUpdate(prevState) {
     if (prevState.activeLetter !== this.state.activeLetter) {
-      setTimeout(this.nextActiveLetter.bind(this), 1000);
+      clearInterval(this.intervalId);
+      const intervalId = setTimeout(this.nextActiveLetter.bind(this), 1000);
+      this.intervalId = intervalId;
     }
+  };
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   nextActiveLetter() {
