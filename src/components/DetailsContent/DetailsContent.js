@@ -32,7 +32,7 @@ export default class DetailsContent extends Component {
 
     return (
       <React.Fragment>
-        {imageExists ? <Img type={properties.typeOfItem} id={id}/> : null}
+        {imageExists ? <Img imgUrl={imageExists}/> : null}
         <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
           <header className='my-3'>
             <span>{name}</span>

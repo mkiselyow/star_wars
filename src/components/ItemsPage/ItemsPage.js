@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import ItemList from '../ItemList/ItemList';
 import ItemDetails from '../ItemDetails/ItemDetails';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import withSwapiService from '../hoc-helpers/withSwapiService';
 
-export default class ItemsPage extends Component {
+class ItemsPage extends Component {
 
   state = {
     selectedItem: null
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.swapiService !== prevProps.swapiService) {
+      this.setState({selectedItem: null})
+    }
   };
 
   onItemSelected = (id) => {
@@ -17,6 +24,12 @@ export default class ItemsPage extends Component {
 
   render() {
     const itemsType = this.props.itemsType;
+    const itemDetails = this.state.selectedItem
+      ? <ItemDetails
+        id={this.state.selectedItem}
+        itemType={itemsType}
+      />
+      : null;
 
     return (
       <ErrorBoundary>
@@ -28,13 +41,12 @@ export default class ItemsPage extends Component {
             />
           </div>
           <div className='col-md-6'>
-            <ItemDetails
-              id={this.state.selectedItem}
-              itemType={itemsType}
-            />
+            {itemDetails}
           </div>
         </div>
       </ErrorBoundary>
     )
   }
-};
+}
+
+export default withSwapiService(ItemsPage);

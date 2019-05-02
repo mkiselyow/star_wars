@@ -8,7 +8,18 @@ const withData = (View) => {
       data: null
     };
 
+    componentDidUpdate(prevProps) {
+      if (this.props.swapiService !== prevProps.swapiService) {
+        this.updateData.call(this);
+      }
+    };
+
     componentDidMount() {
+      this.updateData.call(this);
+    };
+
+    updateData() {
+      this.setState({data: null});
       this.props.swapiService
         .getAllResources(this.props.itemsType)
         .then((items) => {

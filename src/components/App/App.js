@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SwapiService from '../../services/SwapiService/SwapiService';
+import DummySwapiService from '../../services/DummySwapiService/DummySwapiService';
 import Header from '../Header/Header';
 import RandomPlanet from "../RandomPlanet/RandomPlanet";
 import ItemsPage from '../ItemsPage/ItemsPage';
@@ -25,9 +26,7 @@ export default class App extends Component {
 
   onToggleAPI = () => {
     this.setState(({swapiService}) => {
-      console.log(swapiService);
-      console.log(swapiService ? undefined : SwapiService);
-      const newState = SwapiService ? undefined : SwapiService;
+      const newState = swapiService === SwapiService ? DummySwapiService : SwapiService;
       return {
         swapiService: newState
       }

@@ -15,12 +15,19 @@ class ItemDetails extends Component {
     typeOfItem: null,
     error: false,
     imageExists: false,
-    fetchingNextObj: true
+    fetchingNextObj: false
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.id !== prevProps.id) {
-      this.fetchingNextObj(true);
+    if ((this.props.id !== prevProps.id) && this.props.id) {
+      this.fetchItem(this.props.itemType);
+    } else if (this.props.swapiService !== prevProps.swapiService) {
+      this.fetchingNextObj(false);
+    }
+  };
+
+  componentDidMount() {
+    if (this.props.id) {
       this.fetchItem(this.props.itemType);
     }
   };
@@ -38,6 +45,7 @@ class ItemDetails extends Component {
   };
 
   fetchItem(itemType) {
+    this.fetchingNextObj(true);
     const id = this.props.id;
     this.props.swapiService
       .getResourceById(itemType, id)

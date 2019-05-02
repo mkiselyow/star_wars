@@ -22,7 +22,7 @@ const SwapiService = {
     const url =
       `https://starwars-visualguide.com/assets/img/${resource}/${id}.jpg`;
     const resp = await fetch(url);
-    return resp.status !== 404;
+    return (resp.status !== 404) ? url : false;
   },
 
   getId(objectToDecorate) {
