@@ -59,7 +59,16 @@ const SwapiService = {
           mass: objectToDecorate.mass,
           height: objectToDecorate.height,
           imageExists: isImageExists,
-          typeOfItem: 'people'
+          typeOfItem: 'people',
+          hairColor: objectToDecorate.hair_color,
+          skinColor: objectToDecorate.skin_color,
+          eyeColor: objectToDecorate.eye_color,
+          birthYear: objectToDecorate.birth_year,
+          homeWorld: objectToDecorate.homeworld,
+          films: objectToDecorate.films.join('\n'),
+          species: objectToDecorate.species.join('\n'),
+          vehicles: objectToDecorate.vehicles.join('\n'),
+          starships: objectToDecorate.starships.join('\n')
         };
       default:
         return objectToDecorate;

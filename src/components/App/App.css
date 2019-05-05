@@ -1,3 +1,11 @@
 .bg-gray {
     background: #303030;
 }
+
+a {
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+}

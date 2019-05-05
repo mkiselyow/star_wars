@@ -8,7 +8,16 @@ export default class DetailsContent extends Component {
       return [
         ['Gender', obj.gender],
         ['Mass', obj.mass],
-        ['Height', obj.height]
+        ['Height', obj.height],
+        ['Hair color', obj.hairColor],
+        ['Skin color', obj.skinColor],
+        ['Eye color', obj.eyeColor],
+        ['Birth year', obj.birthYear],
+        ['Home world', obj.homeWorld],
+        ['Films', obj.films],
+        ['Species', obj.species],
+        ['Vehicles', obj.vehicles],
+        ['Star ships', obj.starships]
       ];
     } else if (obj.typeOfItem === "planets") {
       return [
@@ -27,31 +36,23 @@ export default class DetailsContent extends Component {
 
   render() {
     const {id, name, ...properties} = this.props.item;
-    const imageExists = this.props.imageExists;
-    const propertiesObj = this.mapPropertiesNames;
+    const { imageExists, isFullDescription } = this.props;
+    const rows = <Rows propertiesObj={this.mapPropertiesNames}
+                       properties={properties}
+                       isFullDescription={isFullDescription}/>;
 
     return (
       <React.Fragment>
-        {imageExists ? <Img imgUrl={imageExists}/> : null}
+        {imageExists
+          ? <Img imgUrl={imageExists}
+                 isFullDescription={isFullDescription}/>
+          : null}
         <div className='col-12 col-sm-6 d-flex flex-column justify-content-center align-content-middle'>
           <header className='my-3'>
             <span>{name}</span>
           </header>
           <table className="table table-hover">
-            <tbody>
-            <Row
-              propertyName={propertiesObj(properties)[0][0]}
-              propertyValue={propertiesObj(properties)[0][1]}
-            />
-            <Row
-              propertyName={propertiesObj(properties)[1][0]}
-              propertyValue={propertiesObj(properties)[1][1]}
-            />
-            <Row
-              propertyName={propertiesObj(properties)[2][0]}
-              propertyValue={propertiesObj(properties)[2][1]}
-            />
-            </tbody>
+            {rows}
           </table>
         </div>
       </React.Fragment>
@@ -69,5 +70,26 @@ const Row = ({propertyName, propertyValue}) => {
         {propertyValue}
       </td>
     </tr>
+  )
+};
+
+const Rows = ({propertiesObj, properties, isFullDescription}) => {
+  const rows = propertiesObj(properties)
+    .map((property, index) => {
+      let tmp;
+      if (isFullDescription || (!isFullDescription && index < 3)) {
+        tmp = (
+        <Row
+          key={index}
+          propertyName={property[0]}
+          propertyValue={property[1]}
+        />)}
+      return tmp;
+  });
+
+  return (
+    <tbody>
+      {rows}
+    </tbody>
   )
 };

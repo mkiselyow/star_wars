@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link} from "react-router-dom";
+
 import ItemList from '../ItemList/ItemList';
 import ItemDetails from '../ItemDetails/ItemDetails';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
@@ -25,10 +27,11 @@ class ItemsPage extends Component {
   render() {
     const itemsType = this.props.itemsType;
     const itemDetails = this.state.selectedItem
-      ? <ItemDetails
-        id={this.state.selectedItem}
-        itemType={itemsType}
-      />
+      ? <Link to={`/${itemsType}/${this.state.selectedItem}`}>
+          <ItemDetails
+            id={this.state.selectedItem}
+            itemType={itemsType}/>
+        </Link>
       : null;
 
     return (

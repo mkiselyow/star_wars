@@ -63,11 +63,13 @@ class ItemDetails extends Component {
     const {error, imageExists, fetchingNextObj, ...item} = this.state;
     const isItemEmpty = !fetchingNextObj && !!Object.values(item).join('');
     const isError = error;
-    const isItemSelected = this.props.id;
+    const { isFullDescription, isItemSelected } = this.props;
     const content = isItemEmpty
       ? <DetailsContent
         imageExists={imageExists}
-        item={{...item}}/>
+        item={{...item}}
+        isFullDescription={isFullDescription}
+      />
       : null;
     const spinner = !isItemEmpty && !isError && isItemSelected
       ? <Spinner/>
