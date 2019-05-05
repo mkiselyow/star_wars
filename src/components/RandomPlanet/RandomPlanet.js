@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
@@ -8,6 +9,10 @@ import withSwapiService from '../hoc-helpers/withSwapiService';
 import './RandomPlanet.css';
 
 class RandomPlanet extends Component {
+
+  static propTypes = {
+    swapiService: PropTypes.object
+  };
 
   state = {
     id: null,
@@ -19,23 +24,27 @@ class RandomPlanet extends Component {
 
   componentDidMount() {
     this.updatePlanet();
-    this.interval = setInterval(
+    this.intervalId = setInterval(
       this.updatePlanet.bind(this),
       5000);
   };
 
   componentWillUnmount() {
-    this.interval = null;
+    clearInterval(this.intervalId);
   };
 
   onError = (err) => {
     console.log(err + ' === in random planet');
     this.setState({error: true});
-    this.interval = null;
+    clearInterval(this.intervalId);
   };
 
   onNoError = () => {
     this.setState({error: false});
+    this.updatePlanet();
+    this.intervalId = setInterval(
+      this.updatePlanet.bind(this),
+      5000);
   };
 
   updatePlanet() {
