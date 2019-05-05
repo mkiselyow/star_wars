@@ -34,3 +34,11 @@
     color: black;
     background-color: white;
 }
+
+.title-link {
+    color: inherit;
+}
+
+.title-link:hover {
+    text-decoration: none;
+}

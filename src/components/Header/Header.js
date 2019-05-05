@@ -1,15 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import './Header.css';
 
 const Header = ({onToggleAPI}) => {
   return (
     <header className='header'>
       <ul className="nav nav-list-item-container">
-        <Link href={"#"} title="People"/>
-        <Link href={"#"} title="Planets"/>
-        <Link href={"#"} title="Ships"/>
-        <Link
-          href={"#"}
+        <ListItem title="People"
+                  route="/people"/>
+        <ListItem title="Planets"
+                  route="/planets"/>
+        <ListItem title="Ships"
+                  route="/starships"
+        />
+        <ListItem
           title="Toggle API"
           onClick={onToggleAPI}
         />
@@ -18,14 +23,14 @@ const Header = ({onToggleAPI}) => {
   )
 };
 
-const Link = ({href, title, onClick}) => {
+const ListItem = ({title, route, onClick}) => {
+  const TagName = route ? Link : 'a';
   return (
     <li className={`nav-item`}>
-      <a
+      <TagName to={route}
         className="nav-link nav-list-item"
-        href={href}
         onClick={onClick}
-      >{title}</a>
+      >{title}</TagName>
     </li>
   )
 };

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
+
 import './Title.css';
 
 export default class Title extends Component {
@@ -10,15 +12,14 @@ export default class Title extends Component {
   };
 
   componentDidMount () {
-    const intervalId = setTimeout(this.nextActiveLetter.bind(this), 1000);
-    this.intervalId = intervalId;
+    this.intervalId = setTimeout(this.nextActiveLetter.bind(this), 1000);
+
   };
 
   componentDidUpdate(prevState) {
     if (prevState.activeLetter !== this.state.activeLetter) {
       clearInterval(this.intervalId);
-      const intervalId = setTimeout(this.nextActiveLetter.bind(this), 1000);
-      this.intervalId = intervalId;
+      this.intervalId = setTimeout(this.nextActiveLetter.bind(this), 1000);
     }
   };
 
@@ -58,10 +59,10 @@ export default class Title extends Component {
   render () {
     const text = this.wrapLetters();
     return (
-      <article
-        id='dynamicText'
-        className='my-3 word-wrapper'
-      >{text}</article>
+      <Link
+        to={"/"}
+        className='my-3 word-wrapper title-link'
+      >{text}</Link>
     );
   }
 };
