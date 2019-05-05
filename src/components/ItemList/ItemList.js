@@ -1,11 +1,16 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
+
 import './ItemList.css';
 import Spinner from "../Spinner/Spinner"
 import Error from "../Error/Error";
 import withData from "../hoc-helpers/withData";
 import withSwapiService from "../hoc-helpers/withSwapiService";
 
-const ItemList = ({onItemSelected, data, error}) => {
+const ItemList = ({data, error, history, itemsType}) => {
+  const onItemSelected = (id) => {
+    history.push(`/${itemsType}/selectedItem/${id}`);
+  };
 
   const prepareList = () => {
     if (data) {
@@ -63,4 +68,4 @@ const renderItem = function(item) {
   }
 };
 
-export default withSwapiService(withData(ItemList));
+export default withRouter(withSwapiService(withData(ItemList)));

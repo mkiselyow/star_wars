@@ -8,11 +8,11 @@ const Header = ({onToggleAPI}) => {
     <header className='header'>
       <ul className="nav nav-list-item-container">
         <ListItem title="People"
-                  route="/people"/>
+                  route="/people/"/>
         <ListItem title="Planets"
-                  route="/planets"/>
+                  route="/planets/"/>
         <ListItem title="Ships"
-                  route="/starships"
+                  route="/starships/"
         />
         <ListItem
           title="Toggle API"

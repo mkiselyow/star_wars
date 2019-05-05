@@ -8,16 +8,20 @@ const Routes = () => {
     .map((route) => {
     return (
       <React.Fragment key={route}>
-        <Route path={`/${route}`}
+        <Route path={`/${route}/selectedItem/:id?`}
                component={() =>
                  <ItemsPage itemsType={route}/>}
                exact
         />
-        <Route path={`/${route}/:id`}
+        <Route path={`/${route}/`}
+               component={() =>
+                 <ItemsPage itemsType={route}/>}
+               exact
+        />
+        <Route path={`/${route}/:id([0-9]+)`}
           render={({ match }) => {
             const { id } = match.params;
-            return <ItemDetails id={id}
-                                itemType={route}
+            return <ItemDetails itemType={route}
                                 isFullDescription={true}
             />}}
         />

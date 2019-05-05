@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { withRouter } from "react-router-dom";
 
 import Spinner from '../Spinner/Spinner';
 import DetailsContent from '../DetailsContent/DetailsContent';
@@ -19,15 +20,14 @@ class ItemDetails extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if ((this.props.id !== prevProps.id) && this.props.id) {
-      this.fetchItem(this.props.itemType);
-    } else if (this.props.swapiService !== prevProps.swapiService) {
+    if (this.props.swapiService !== prevProps.swapiService) {
       this.fetchingNextObj(false);
     }
   };
 
   componentDidMount() {
-    if (this.props.id) {
+    const { match } = this.props;
+    if (match.params.id) {
       this.fetchItem(this.props.itemType);
     }
   };
@@ -46,9 +46,9 @@ class ItemDetails extends Component {
 
   fetchItem(itemType) {
     this.fetchingNextObj(true);
-    const id = this.props.id;
+    const { match } = this.props;
     this.props.swapiService
-      .getResourceById(itemType, id)
+      .getResourceById(itemType, match.params.id)
       .then((item) => {
         this.setState({...item});
         this.fetchingNextObj(false);
@@ -63,7 +63,8 @@ class ItemDetails extends Component {
     const {error, imageExists, fetchingNextObj, ...item} = this.state;
     const isItemEmpty = !fetchingNextObj && !!Object.values(item).join('');
     const isError = error;
-    const { isFullDescription, isItemSelected } = this.props;
+    const { isFullDescription, match } = this.props;
+    const isItemSelected = match.params.id;
     const content = isItemEmpty
       ? <DetailsContent
         imageExists={imageExists}
@@ -90,4 +91,4 @@ class ItemDetails extends Component {
   }
 }
 
-export default withSwapiService(ItemDetails);
+export default withRouter(withSwapiService(ItemDetails));
