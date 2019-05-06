@@ -14,6 +14,12 @@ const Header = ({onToggleAPI}) => {
         <ListItem title="Ships"
                   route="/starships/"
         />
+        <ListItem title="Login Page"
+                  route="/login"
+        />
+        <ListItem title="Secret Page"
+                  route="/secret"
+        />
         <ListItem
           title="Toggle API"
           onClick={onToggleAPI}

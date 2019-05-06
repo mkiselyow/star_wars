@@ -12,7 +12,14 @@ import './App.css';
 
 export default class App extends Component {
   state = {
-    swapiService: SwapiService
+    swapiService: SwapiService,
+    isLoggedIn: false
+  };
+
+  onLogin = () => {
+    this.setState({
+      isLoggedIn: true
+    })
   };
 
   isFetchInProgress = false;
@@ -35,6 +42,7 @@ export default class App extends Component {
   };
 
   render() {
+    const { isLoggedIn, swapiService } = this.state;
     this.changeProgress(true);
     (this.state.swapiService).getAllResources('planets')
       .then((body) => {
@@ -48,7 +56,7 @@ export default class App extends Component {
 
     return (
       <div className='app container'>
-        <SwapiServiceProvider value={this.state.swapiService}>
+        <SwapiServiceProvider value={swapiService}>
           <Router>
             <Title/>
             <Header onToggleAPI={this.onToggleAPI}/>
@@ -70,7 +78,7 @@ export default class App extends Component {
             </div>
 
             <RandomPlanet/>
-            <Routes/>
+            <Routes isLoggedIn={isLoggedIn} onLogin={this.onLogin}/>
           </Router>
         </SwapiServiceProvider>
       </div>
