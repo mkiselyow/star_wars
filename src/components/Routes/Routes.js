@@ -6,32 +6,7 @@ import LoginPage from  "../LoginPage/LoginPage";
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 const Routes = ({isLoggedIn, onLogin}) => {
-  const preparedRoutes = ['planets', 'starships', 'people']
-    .map((route) => {
-    return (
-      <React.Fragment key={route}>
-        <Switch>
-          <Route path={`/${route}/selectedItem/:id?`}
-                 component={() =>
-                   <ItemsPage itemsType={route}/>}
-                 exact
-          />
-          <Route path={`/${route}/`}
-                 component={() =>
-                   <ItemsPage itemsType={route}/>}
-                 exact
-          />
-          <Route path={`/${route}/:id([0-9]+)`}
-            render={() => {
-              return <ItemDetails itemType={route}
-                                  isFullDescription={true}
-              />}}
-          />
-          <Redirect to="/"/>
-        </Switch>
-      </React.Fragment>
-    )
-  });
+  const routes = ['planets', 'starships', 'people'];
 
   return (
     <React.Fragment>
@@ -55,8 +30,54 @@ const Routes = ({isLoggedIn, onLogin}) => {
                  />}
                exact
         />
-
-        {preparedRoutes}
+        <Route path={`/${routes[0]}/selectedItem/:id?`}
+               component={() =>
+                 <ItemsPage itemsType={routes[0]}/>}
+               exact
+        />
+        <Route path={`/${routes[0]}/`}
+               component={() =>
+                 <ItemsPage itemsType={routes[0]}/>}
+               exact
+        />
+        <Route path={`/${routes[0]}/:id([0-9]+)`}
+               render={() => {
+                 return <ItemDetails itemType={routes[0]}
+                                     isFullDescription={true}
+                 />}}
+        />
+        <Route path={`/${routes[1]}/selectedItem/:id?`}
+               component={() =>
+                 <ItemsPage itemsType={routes[1]}/>}
+               exact
+        />
+        <Route path={`/${routes[1]}/`}
+               component={() =>
+                 <ItemsPage itemsType={routes[1]}/>}
+               exact
+        />
+        <Route path={`/${routes[1]}/:id([0-9]+)`}
+               render={() => {
+                 return <ItemDetails itemType={routes[1]}
+                                     isFullDescription={true}
+                 />}}
+        />
+        <Route path={`/${routes[2]}/selectedItem/:id?`}
+               component={() =>
+                 <ItemsPage itemsType={routes[2]}/>}
+               exact
+        />
+        <Route path={`/${routes[2]}/`}
+               component={() =>
+                 <ItemsPage itemsType={routes[2]}/>}
+               exact
+        />
+        <Route path={`/${routes[2]}/:id([0-9]+)`}
+               render={() => {
+                 return <ItemDetails itemType={routes[2]}
+                                     isFullDescription={true}
+                 />}}
+        />
         <Redirect to="/"/>
       </Switch>
     </React.Fragment>
